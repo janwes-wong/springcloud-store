@@ -1,0 +1,19 @@
+server:
+  port: 8761
+spring:
+  application:
+    name: eureka-server
+# Eureka配置
+eureka:
+  instance:
+    hostname: ${hostname:localhost}
+  client:
+    service-url:
+      defaultZone: http://${hostname:localhost}:${server.port}/eureka/
+    # 防止Eureka启动时注册本身服务，即自己本身
+    register-with-eureka: false
+    # 不向eureka server 获取服务列表
+    fetch-registry: false
+  server:
+    # 在开发环境时关闭服务心跳检测提示，在生产环境需要改为True
+    enable-self-preservation: true

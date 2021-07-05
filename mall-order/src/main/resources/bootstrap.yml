@@ -1,0 +1,15 @@
+# apollo配置中心配置
+apollo:
+  bootstrap:
+    enabled: true
+    namespaces: application.yml
+  # meta service url
+  meta: http://${ApolloHost:localhost}:${ApolloPort:8080} # 本地开发配置 http://127.0.0.1:8080 or http://localhost:8080
+app:
+  id: mall-order
+spring:
+  application:
+    name: mall-order
+  profiles:
+    # 开发环境
+    active: ${ENV:dev}

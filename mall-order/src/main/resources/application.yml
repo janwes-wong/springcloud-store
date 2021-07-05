@@ -1,0 +1,60 @@
+# 当使用apollo配置中心bootstrap.yml配置文件时，该application.yml配置文件不使用
+# 服务端口
+server:
+  port: 9900
+spring:
+  application:
+    name: mall-order
+# Eureka配置
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      registry-fetch-interval-seconds: 5
+      defaultZone: http://localhost:8761/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+# 服务调用openfeign配置
+feign:
+  client:
+    config:
+      default: # default指定的是所有的 被调用方  都设置为该配置超时时间，可以设置为某一个微服务对应的服务名
+        connectionTimeout: 5000 # 连接超时时间
+        readTimeout: 5000 # 读取超时时间
+  # feign接口的断路器 服务降级（openfeign内部已集成hystrix）
+  hystrix:
+    enabled: true
+# 服务熔断配置
+hystrix:
+  command:
+    # 全局配置
+    default:
+      execution:
+        timeout:
+          # 执行是否启用超时，默认启用true
+          enabled: false
+        isolation:
+          # 隔离策略
+          thread:
+            # 命令执行超时时间，默认1000ms
+            timeoutInMilliseconds: 1000
+      circuitBreaker:
+        # 当在配置时间窗口内达到此数量的失败后，进行短路
+        requestVolumeThreshold: 20
+        #出错百分比阈值，当达到此阈值后，开始短路。默认50%）
+        errorThresholdPercentage: 50%
+        # 短路多久以后开始尝试是否恢复，默认5s）-单位ms
+        sleepWindowInMilliseconds: 500
+  metrics:
+    enabled: true
+# knife4j配置
+knife4j:
+  # 开启增强配置
+  enable: true
+  # 如果为true则开启生产环境屏蔽
+  production: false
+  basic:
+    enable: true
+    username: ${spring.application.name}
+    password: mall-order@/147

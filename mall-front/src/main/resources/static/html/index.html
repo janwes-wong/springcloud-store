@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试</title>
+    <script src="/js/vue.js"></script>
+    <script src="/js/axios.js"></script>
+</head>
+<body>
+<div id="app">
+    <button @click="getInfo()">点我</button>
+</div>
+</body>
+<script>
+    let app = new Vue({
+        el: "#app",
+        data: {},
+        methods: {
+            getInfo: function () {
+                axios.get("http://localhost:18804/api/item/123?token=123456").then(
+                    function (response) {
+                        //打印返回的数据
+                        console.log(response.data);
+                    }
+                )
+            }
+        }
+    })
+</script>
+
+</html>

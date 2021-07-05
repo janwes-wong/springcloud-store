@@ -1,0 +1,21 @@
+server:
+  port: 9001
+spring:
+  application:
+    name: hystrix-dashboard
+# 服务熔断配置
+hystrix:
+  dashboard:
+    proxy-stream-allow-list: "*"
+  metrics:
+    enabled: true
+# Eureka配置
+eureka:
+  instance:
+    hostname: ${hostname:localhost}
+  client:
+    service-url:
+      registry-fetch-interval-seconds: 5
+      defaultZone: http://${hostname:localhost}:8761/eureka/
+    fetch-registry: true
+    register-with-eureka: true
