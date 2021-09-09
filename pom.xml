@@ -34,7 +34,7 @@
         <!--lombok版本-->
         <lombok.version>1.18.8</lombok.version>
         <!--knife4j版本-->
-        <knife4jk.cersion>2.0.7</knife4jk.cersion>
+        <knife4jk.version>2.0.7</knife4jk.version>
         <skipTests>true</skipTests>
     </properties>
 
@@ -65,7 +65,7 @@
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-spring-boot-starter</artifactId>
-            <version>${knife4jk.cersion}</version>
+            <version>${knife4jk.version}</version>
         </dependency>
 
         <!--lombok-->
