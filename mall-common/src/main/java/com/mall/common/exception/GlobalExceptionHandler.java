@@ -3,8 +3,11 @@ package com.mall.common.exception;
 import com.mall.common.model.Result;
 import com.mall.common.model.StatusCode;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.Objects;
 
 /**
  * @author Janwes
@@ -39,5 +42,18 @@ public class GlobalExceptionHandler {
     public Result handlerBaseException(BaseException e) {
         log.error(">>> 基础异常......", e);
         return Result.errorMessage(StatusCode.INVALID_PARAMS.code(), e.getMessage(), null);
+    }
+
+    /**
+     * 一般请求参数验证异常
+     *
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Result handlerParamValidException(MethodArgumentNotValidException e) {
+        String message = Objects.isNull(e.getBindingResult().getFieldError()) ? null : e.getBindingResult().getFieldError().getDefaultMessage();
+        e.printStackTrace();
+        return Result.errorMessage(StatusCode.INVALID_PARAMS.code(), message, null);
     }
 }
